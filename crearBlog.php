@@ -88,7 +88,7 @@ require_once "pdo.php";
        
      
 </div>
-			<textarea  class="formInput" id="post" name=asunto placeholder="Escriba el asunto"></textarea>
+			<textarea  class="formInput" id="post" name=contenido placeholder="Escriba el asunto"></textarea>
     </div>
     <div name="contenedor" style="position: relative;top: 10px">
 	<div class="form-group" style="height: 160px;" >
@@ -136,6 +136,7 @@ require_once "pdo.php";
     }
       if(isset($_POST['enviar']) && isset($_POST['contenido'])){
                   $contenido=$_POST['contenido'];
+				  $mensaje=$_POST['mensaje'];
                   $imgn=($_FILES['prev']['name']);
                   $imgn1=($_FILES['prev']['tmp_name']);
                   $imagenN=addslashes($_FILES['prev']['tmp_name']);
@@ -153,7 +154,7 @@ require_once "pdo.php";
                  VALUES (:post, :idusuario,:cargo,:image,:imgname,:asunto)";
                  $stmt = $pdo->prepare($sql);
               try{
-                $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$asunto));
+                $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido));
               }catch(PDOException $e){
 
               }
