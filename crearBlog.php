@@ -108,12 +108,8 @@ require_once "pdo.php";
 	<div class="form-group" style="height: 160px;" >
 			<h1>Seleccionar un archivo:</h1>
       <div style="width: 9%;float: left;" align="center">
-      <input type="file" name="adjunto" accept=".pdf,.docx,.xls" multiple>
+      <input type="file" src="file.png" name="adjunto" accept=".pdf,.docx,.xls" multiple>
     <div name="contenedor" style="position: relative;top: 10px">
-    <div  style="margin-left: 2%;float: left;">
-      <img type="image" src="sub.png" name="im" style="float: left;margin-left: 3%; width: 52px;height: 52px;">
-    </div>
-	
     <div style="width: 100px; height: 52px; margin-left: 3%;position: relative; top: 10px;float: left;">
     <form action="/action_page.php" method="post">
           <input style="box-sizing:border-box;" id="file-input" name="prev" type="file"  accept="image/x-png,image/gif,image/jpeg" />
