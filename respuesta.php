@@ -77,7 +77,7 @@ require_once "pdo.php";
       }
     ?>
 	  <div class="page-header" align="center" id=tittle style="height: 240px">
-      <h1> Bienvenido al Foro</h1>
+      <h1> Responder</h1>
 			
 	  </div>
     <form  method="post" enctype="multipart/form-data">
@@ -150,7 +150,7 @@ require_once "pdo.php";
 
 
 
-               $sql = "INSERT INTO foro (contenido, idusuario,rol,imagen,imagename,asunto)
+               $sql = "INSERT INTO respuesta (contenido, idusuario,rol,imagen,imagename,asunto)
                  VALUES (:post, :idusuario,:cargo,:image,:imgname,:asunto)";
                  $stmt = $pdo->prepare($sql);
               try{
