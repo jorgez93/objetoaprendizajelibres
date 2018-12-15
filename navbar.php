@@ -63,14 +63,14 @@
 				<li class="nav-item" data-toogle="tooltip" data-placement="right" title="Blog">
 					<a class="nav-link nav-link-collapse collapse" data-toggle="collapse" href="#bloggingComponents" data-parent="#exampleAccordion">
 						<i class="fa fa-fw fa-github"></i>
-						<span class="nav-link-text">Blogging</span>
+						<span class="nav-link-text">Foro</span>
 					</a>
 					<ul class="sidenav-second-level collapse" id="bloggingComponents">
 						<li>
-							<a href="crearBlog.php">Crear Blog</a>
+							<a href="crearBlog.php">Crear Foro</a>
 						</li>
 						<li>
-							<a href="buscarPost.php">Buscar Blogs</a>
+							<a href="buscarPost.php">Buscar Foro</a>
 						</li>
 					</ul>
 
