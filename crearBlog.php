@@ -78,17 +78,17 @@ require_once "pdo.php";
     ?>
 	  <div class="page-header" align="center" id=tittle style="height: 240px">
       <h1> Bienvenido al Foro</h1>
-			<img src="images/logoEPN.png" style="float:center; width:150px;height:150px; margin:1em">
+			
 	  </div>
     <form  method="post" enctype="multipart/form-data">
     <div class="form-group" style="height: 160px;" >
-			<h1>Foro:</h1>
+			<h1>Asunto:</h1>
       <div style="width: 9%;float: left;" align="center">
       
        
      
       </div>
-			<textarea  class="formInput" id="post" name=contenido placeholder="Hey! Cuentanos cómo estas"></textarea>
+			<textarea  class="formInput" id="post" name=contenido placeholder="Escriba el asunto"></textarea>
     </div>
     <div name="contenedor" style="position: relative;top: 10px">
     <div  style="margin-left: 2%;float: left;">
