@@ -88,7 +88,7 @@ require_once "pdo.php";
        
      
 </div>
-			<textarea  class="formInput" id="post" name=mesnaje placeholder="Escriba el asunto"></textarea>
+			<textarea  class="formInput" id="post" name=asunto placeholder="Escriba el asunto"></textarea>
     </div>
     <div name="contenedor" style="position: relative;top: 10px">
 	<div class="form-group" style="height: 160px;" >
@@ -149,11 +149,11 @@ require_once "pdo.php";
 
 
 
-               $sql = "INSERT INTO foro (contenido, idusuario,rol,imagen,imagename)
-                 VALUES (:post, :idusuario,:cargo,:image,:imgname)";
+               $sql = "INSERT INTO foro (contenido, idusuario,rol,imagen,imagename,asunto)
+                 VALUES (:post, :idusuario,:cargo,:image,:imgname,:asunto)";
                  $stmt = $pdo->prepare($sql);
               try{
-                $stmt->execute(array(':post' => $contenido,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn));
+                $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$asunto);
               }catch(PDOException $e){
 
               }
