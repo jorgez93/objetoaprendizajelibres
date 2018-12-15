@@ -153,7 +153,7 @@ require_once "pdo.php";
                  VALUES (:post, :idusuario,:cargo,:image,:imgname,:asunto)";
                  $stmt = $pdo->prepare($sql);
               try{
-                $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$asunto);
+                $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$asunto));
               }catch(PDOException $e){
 
               }
