@@ -34,6 +34,8 @@ CREATE TABLE `administrador` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+INSERT INTO `administrador` VALUES (1,'Administrador','admin','$2y$10$nXfCxVyPD5M8nTsPR3Dk3.tBDBY2WZKrQqFuKXk7pGy/DjPkjNIKC',1);
+
 --
 -- Table structure for table `carrera`
 --
@@ -49,6 +51,8 @@ CREATE TABLE `carrera` (
   KEY `idFacultad` (`idFacultad`)
 ) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+INSERT INTO `carrera` VALUES (1,'Fisica',1),(2,'Matematicas',1),(3,'Ingenieria Matematica',1),(4,'Ingenieria en Ciencias Economicas y Financieras',1),(5,'Maestria en Fisica',1),(6,'Ingenieria Empresarial',2),(7,'Ingenieria de la Produccion',2),(8,'Maestria en Gestion de Software',2),(9,'Maestria en Gestion de Recusos Humanos',2),(10,'Ingenieria Civil',3),(11,'Ingenieria Ambiental',3),(12,'Ingenieria Electrica',4),(13,'Ingenieria Electrica y Control',4),(14,'Ingenieria Electrica y en Redes de Comunicacion',4),(15,'Ingenieria Electrica y Telecomunicaciones',4),(16,'Maestria en Gestion de Produccion',4),(17,'Maestria en Conectividad y Redes de Telecomunicaciones',4),(18,'Maestria en Automatizacion y Control Electronico Industrial',4),(19,'Maestria en Administracion de Negocios Electricos',4),(20,'Maestria en Ingenieria­a Electrica en Distribucion',4),(21,'Maestria en Redes Elecctricas Inteligentes',4),(22,'Ingenieria en Geologia',5),(23,'Ingenieria en Petroleos',5),(24,'Ingenieria Mecanica',6),(25,'Maestria en Mecatronica y Robotica',6),(26,'Maestria en Sistemas Automotrices',6),(27,'Maestria en Disenoo y Simulacion',6),(28,'Programa Doctoral en Ciencias de la Mecanica',6),(29,'Ingenieria Agroindustrial',7),(30,'Ingenieria Quimica',7),(31,'Ingenieria en Software',8),(32,'Ingenieria en Computacion',8),(33,'Ingenieria en Sistemas Informaticos y de Computacion',8),(34,'Maestria y Especialista en Gestion de las Comunicaciones y Tecnologia de la Informacion',8),(35,'Maestria en Ciencias de la Computacion',8),(36,'Maestria en Sistemas de Informacion',8),(37,'Doctorado en Informatica',8),(38,'Tecnologia en Electronica y Telecomunicaciones',9),(39,'Tecnologia en Ana¡lisis de Sistemas Informaticos',9),(40,'Tecnologia en Electromecanica',9),(41,'Tecnologia en Agua y Saneamiento Ambiental',9);
 
 --
 -- Table structure for table `comentario`
@@ -87,6 +91,8 @@ CREATE TABLE `departamento` (
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+INSERT INTO `departamento` VALUES (1,'Departamento de Fisica (DF)',1),(2,'Departamento de Matematica (DM)',1),(3,'Departamento de Ciencias Administrativas (DEPCA)',2),(4,'Departamento de Estudios Organizacionales Desarrollo Humano (DESODEH)',2),(5,'Departamento de Ingenieria Civil y Ambiental (DICA)',3),(6,'Departamento de Automatizacion y Control Industrial (DACI)',4),(7,'Departamento de Energia Electrica (DEE)',4),(8,'Departamento de Electronica, Telecomunicaciones y Redes de Informacion (DETRI)',4),(9,'Departamento de Geologia (DG)',5),(10,'Departamento de Petroleos (DP)',5),(11,'Departamento de Ingenieria Mecanica (DIM)',6),(12,'Departamento de Materiales (DMT)',6),(13,'Departamento de Ingenieria Quimica (DIQ)',7),(14,'Departamento de Ciencias de Alimentos y Biotecnologia (DECAB)',7),(15,'Departamento de Ciencias Nucleares (DCN)',7),(16,'Departamento de Metalurgia Extractiva (DEMEX)',7),(17,'Departamento de Informatica y Ciencias de la Computacion (DICC)',8),(18,'Departamento de Formacion Basica (DFB)',10),(19,'Instituto Geofisico',10),(20,'Departamento de Ciencias Sociales',10);
+
 --
 -- Table structure for table `estudiante`
 --
@@ -124,6 +130,8 @@ CREATE TABLE `facultad` (
   PRIMARY KEY (`idFacultad`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+INSERT INTO `facultad` VALUES (1,'Facultad de Ciencias'),(2,'Facultad de Ciencias Administrativas'),(3,'Facultad de Ing. Civil y Ambiental'),(4,'Facultad de Ing. Electrica y Electronica'),(5,'Facultad de Geologia y Petroleos'),(6,'Facultad de Ing. Mecanica'),(7,'Facultad de Ing. Quimica y Agroindustria'),(8,'Facultad de Ing. de Sistemas'),(9,'Escuela de Formacion de Tecnologos'),(10,'Otros');
 
 --
 -- Table structure for table `foro`
@@ -175,6 +183,8 @@ CREATE TABLE `materias` (
   CONSTRAINT `FK_idCarrera` FOREIGN KEY (`idCarrera`) REFERENCES `carrera` (`idCarrera`)
 ) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+INSERT INTO `materias` VALUES (1,'Metrología',24),(2,'Tecnología de fundición',24),(3,'Tecnología de cconformado',24),(4,'Fisica Molecular',1),(5,'Fisica Experimental',1),(6,'Mecanica Newtoniana',1),(7,'Probabilidad y Estadistica',1),(8,'Calculo en una Variable',2),(9,'Probabilidad y Estadistica',2),(10,'Analisis Numerico I',2),(11,'Geometria',2),(12,'Biomatematica y Ecologia',2),(13,'Algebra Lineal',3),(14,'Analisis Vectorial',3),(15,'Optimizacion',3),(16,'Geometria',3),(17,'Fisica',3),(18,'Legislacion Empresarial',4),(19,'Geografia Economica',4),(20,'Teoria Monetaria',4),(21,'Desarrollo Sustentable',4),(22,'Finanzas',4),(23,'-',5),(24,'-',5),(25,'-',5),(26,'-',5),(27,'-',5),(28,'Contabilidad General',6),(29,'Administracion',6),(30,'Gestion de Ventas',6),(31,'Auditoria Financiera',6),(32,'Formulacion de Proyectos',6),(33,'Quimica General',7),(34,'Mecanica Newtoniana',7),(35,'Estadistica Aplicable',7),(36,'Ingenieria Financiera',7),(37,'Programacion Avanzada',7),(38,'Inteligencia de Negocios',8),(39,'Plataformas Tecnologicas',8),(40,'Aseguramiento de la calidad y seguridad del software',8),(41,'Herramientas de Seguridad de Software',8),(42,'Calidad del Producto de Software',8),(43,'-',9),(44,'-',9),(45,'-',9),(46,'-',9),(47,'-',9),(48,'Topografia',10),(49,'Calculo Vectorial',10),(50,'Estructuras',10),(51,'Probabilidad y Estadistica',10),(52,'Mecanica de Suelos',10),(53,'Fundamentos de Biologia',11),(54,'Algebra Lineal',11),(55,'Ingenieria de la Reaccion',11),(56,'Bioquimica',11),(57,'Limnologia',11),(58,'Mecanica Newtoniana',12),(59,'Software de Simulacion',12),(60,'Alto Voltaje',12),(61,'Teoria Electromagnetica',12),(62,'Control Industrial',12),(63,'Fisica General',13),(64,'Calculo en una Variable',13),(65,'Analisis de Seniales y Sistemas',13),(66,'Probabilidad y Estadistica',13),(67,'Maquinas Electricas',13),(68,'Calculo en una Variable',14),(69,'Teoria Electromagnetica',14),(70,'Programacion Orienda a Objetos',14),(71,'Seguridad en Redes',14),(72,'Aplicaciones Distribuidas',14),(73,'Algebra Lineal',15),(74,'Ecuaciones Diferenciales Ordinarias',15),(75,'Circuitos Electronicos',15),(76,'Ingenieria de Trafica',15),(77,'Sistemas de Transmision',15);
 
 --
 -- Table structure for table `objetoaprendizaje`
