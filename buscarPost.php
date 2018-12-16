@@ -177,7 +177,7 @@
 
           <?php
           $usuario=$_SESSION["userID"];
-          $result = $pdo->query("SELECT * FROM post");
+          $result = $pdo->query("SELECT * FROM foro");
           foreach ($result as $row) {
             $id = $row['idpost'];
             $userID = false;
