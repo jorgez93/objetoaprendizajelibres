@@ -3,6 +3,7 @@ require_once "pdo.php";
     session_start();
 
     $idbl=intval($_GET['idbloge']);
+    $idus=intval($_GET['idus']);
     
 /*
      $sql = 'SELECT * FROM post limit 5';
@@ -225,6 +226,13 @@ require_once "pdo.php";
       								if(!empty($datos['imagen'])){
       									echo '<div style="padding:20px;" align="center">';
             							echo '<img id="imagen" name="imagen" src="data:image/jpeg;base64,'.base64_encode( $datos['imagen'] ).'"/>';
+								if($idus == $datos['idusuario']){
+									echo '<td><button type="button" class="btn" onclick="function()">Editar</button></td>';											
+										}
+										
+									echo '<td><button type="button" class="btn" onclick="function()">Responder</button></td>';
+						
+								
             							echo '</div>';
             							?>
             							<div id="myModal" class="modal">
