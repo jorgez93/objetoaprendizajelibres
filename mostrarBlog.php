@@ -177,7 +177,7 @@ require_once "pdo.php";
       				if(isset($_POST['aux'])) $idvecino=$_POST['aux'];
       				echo $_GET['jojo'];*/
         			
-        			$sql = 'SELECT * FROM post WHERE idpost='.$idbl;
+        			$sql = 'SELECT * FROM foro WHERE idpost='.$idbl;
          			$stmt=$pdo->prepare($sql);
 			        $stmt->execute();
 			        foreach ($stmt as $datos) {
