@@ -226,12 +226,7 @@ require_once "pdo.php";
       								if(!empty($datos['imagen'])){
       									echo '<div style="padding:20px;" align="center">';
             							echo '<img id="imagen" name="imagen" src="data:image/jpeg;base64,'.base64_encode( $datos['imagen'] ).'"/>';
-								if($idus == $datos['idusuario']){
-									echo '<td><button type="button" class="btn" onclick="function()">Editar</button></td>';											
-										}
 										
-									echo '<td><button type="button" class="btn" onclick="function()">Responder</button></td>';
-						
 								
             							echo '</div>';
             							?>
@@ -243,6 +238,12 @@ require_once "pdo.php";
 										<?php
             								
   							}
+					
+							echo '<td><button type="button" class="btn" onclick="function()">Responder</button></td>';
+							
+							if($idus == $datos['idusuario']){
+								echo '<td><button type="button" class="btn" onclick="function()">Editar</button></td>';											
+							}
         				
 
 					?>
