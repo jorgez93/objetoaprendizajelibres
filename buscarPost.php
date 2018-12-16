@@ -349,8 +349,8 @@ $('[id*="Descargar"]').click(function () {
     $('#myTable').on('click','.btn',function(){
         var currow=$(this).closest('tr');
         var iden=currow.find('td:eq(0)').text();
-
-        window.location.href="mostrarBlog.php?idbloge="+iden;
+	var id=$("#idUsuario").val();
+	window.location.href="mostrarBlog.php?idbloge="+iden+"&idus="+id;
 
     });
 
