@@ -317,7 +317,7 @@ require_once "pdo.php";
 	
 														
 							if($idus == $respuestas['idusuario']){
-											echo '<td><button type="button" class="btn btn-primary btn-block" onclick="javascript:location.href=' . "'crearBlog.php?idbloge=" . $idbl ."&idus=".$idus."'" . '">Editar</button><td>';
+											echo '<td><button type="button" class="btn btn-primary btn-block" onclick="javascript:location.href=' . "'respuesta.php?idbloge=" . $idbl ."&idus=".$idus."'" . '">Editar</button><td>';
 										}
 										
 										
