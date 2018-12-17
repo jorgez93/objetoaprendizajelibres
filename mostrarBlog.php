@@ -248,6 +248,89 @@ require_once "pdo.php";
 
 					?>
   						</div>
+          			<?php
+      				
+        						
+					$sql2 = 'SELECT * FROM respuesta WHERE idForo='.$idbl;
+         			$stmt2 =$pdo->prepare($sql2);
+			        $stmt2 ->execute();
+					
+					
+			        foreach ($stmt2 as $respuestas) {
+			    ?>
+
+			        
+			         	
+			        <div class="container">
+          				<h5>
+
+          			<?php
+              
+          				if($datos['rol']="prof"){
+            				$sql3 = 'SELECT * FROM profesor where idProfesor='.$respuestas['idusuario'];
+          				}
+
+         				$stmt3=$pdo->prepare($sql3);
+          				$stmt3->execute();
+          
+          				foreach ($stmt3 as $us3) {
+               				$nombreusuarior=$us3['nombresProf'];
+               				$apellidousuarior=$us3['apellidosProf'];
+       					}
+     
+     					if($datos['rol']="est"){
+      						$sql3 = 'SELECT * FROM estudiante where idEstudiante='.$respuestas['idusuario'];
+      					}
+         				
+         				$stmt3=$pdo->prepare($sql3);
+          				$stmt3->execute();
+          				
+          				foreach ($stmt3 as $us3) {
+               				$nombreusuarior=$us3['nombresEst'];
+               				$apellidousuarior=$us3['apellidosEst'];
+       					}
+     
+     					echo $nombreusuarior.' '.$apellidousuarior
+          			?>
+          	
+          			</h5>
+  					
+  						<div id="contenedorRes" class="container" style="border: solid grey 2px; border-radius: 7px; height: 100%; padding: 10px;background-color: #CDD6D5;">
+  							<?php
+            						echo $respuestas['contenido'];
+      								if(!empty($respuestas['imagen'])){
+      									echo '<div style="padding:20px;" align="center">';
+            							echo '<img id="imagen" name="imagen" src="data:image/jpeg;base64,'.base64_encode( $respuestas['imagen'] ).'"/>';
+										
+										
+            							echo '</div>';
+            							?>
+            							<div id="myModalRes" class="modal">
+											  <span class="close">&times;</span>
+											  <img class="modal-content" id="img01Res">
+											  <div id="caption"></div>
+										</div>
+										<?php
+            								
+  							}
+							
+							//echo '<td><button type="button" class="btn" onclick="functionResponder()">Responder</button></td>'; ?idbloge="+iden+"&idus="+id;
+														
+						//	if($idus == $respuestas['idusuario']){
+						//					echo '<td><button type="button" class="btn btn-primary btn-block" onclick="javascript:location.href=' . "'crearBlog.php?idbloge=" . $idbl ."&idus=".$idus."'" . '">Editar</button><td>';
+							//			}
+										
+										
+								
+										
+        				
+
+					?>
+  						</div>
+						
+						
+						
+						
           			
           			
       				
@@ -259,6 +342,16 @@ require_once "pdo.php";
      				</div>
     	
     				<?php
+  						}
+  					?>
+     				</div>
+    	
+    				<?php
+					
+					
+					
+					
+					
   						}
   					?>
 
