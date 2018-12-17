@@ -67,7 +67,7 @@
 					</a>
 					<ul class="sidenav-second-level collapse" id="bloggingComponents">
 						<li>
-							<a href="crearBlog.php">Crear Foro</a>
+							<a href="crearBlog.php?idbloge=-1">Crear Foro</a>
 						</li>
 						<li>
 							<a href="buscarPost.php">Buscar Foro</a>
