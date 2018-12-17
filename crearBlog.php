@@ -1,6 +1,7 @@
 <?php
 require_once "pdo.php";
     session_start();
+    $idbl=intval($_GET['idbloge']);
 
 ?>
 
@@ -130,7 +131,7 @@ require_once "pdo.php";
     if ( $_SESSION["userType"] == 'est' ) {
       $rol="est";
     }
-      if(isset($_POST['enviar']) && isset($_POST['contenido'])){
+      if(isset($_POST['enviar']) && isset($_POST['contenido'])&& $idbl==-1){
                   $contenido=$_POST['contenido'];
 				  $mensaje=$_POST['mensaje'];
                   $imgn=($_FILES['prev']['name']);
@@ -157,6 +158,32 @@ require_once "pdo.php";
               unset($_POST['contenido']);
                unset($_POST['post']);
              }
+	      else if (isset($_POST['enviar']) && isset($_POST['contenido'])){
+			 $contenido=$_POST['contenido'];
+				  $mensaje=$_POST['mensaje'];
+                  $imgn=($_FILES['prev']['name']);
+                  $imgn1=($_FILES['prev']['tmp_name']);
+                  $imagenN=addslashes($_FILES['prev']['tmp_name']);
+
+                  $imagetmp=(file_get_contents($imagenN));
+
+
+
+
+               $sql = "UPDATE foro set contenido=:post,imagen=:image,imagename=:imgname,asunto=:asunto where idpost =:idforo";
+              
+                 $stmt = $pdo->prepare($sql);
+              try{
+                $stmt->execute(array(':post' => $mensaje,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido, ':idforo'=>strval($idbl)));
+              }catch(PDOException $e){
+				  
+				  echo $e;
+
+              }
+              unset($_POST['contenido']);
+               unset($_POST['post']);
+			 
+			 }
       
     ?>
     </form>
