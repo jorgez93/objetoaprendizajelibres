@@ -314,11 +314,11 @@ require_once "pdo.php";
             								
   							}
 							
-							//echo '<td><button type="button" class="btn" onclick="functionResponder()">Responder</button></td>'; ?idbloge="+iden+"&idus="+id;
+	
 														
-						//	if($idus == $respuestas['idusuario']){
-						//					echo '<td><button type="button" class="btn btn-primary btn-block" onclick="javascript:location.href=' . "'crearBlog.php?idbloge=" . $idbl ."&idus=".$idus."'" . '">Editar</button><td>';
-							//			}
+							if($idus == $respuestas['idusuario']){
+											echo '<td><button type="button" class="btn btn-primary btn-block" onclick="javascript:location.href=' . "'crearBlog.php?idbloge=" . $idbl ."&idus=".$idus."'" . '">Editar</button><td>';
+										}
 										
 										
 								
