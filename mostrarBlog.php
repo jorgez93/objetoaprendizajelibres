@@ -50,7 +50,7 @@ require_once "pdo.php";
 	.close:hover{
 		cursor: pointer;
 	}
-	.modal {
+	#modalIMG {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -85,17 +85,17 @@ require_once "pdo.php";
     -webkit-animation-duration: 0.6s;
     animation-name: zoom;
     animation-duration: 0.6s;
-}
+	}
 
-@-webkit-keyframes zoom {
-    from {-webkit-transform:scale(0)} 
-    to {-webkit-transform:scale(1)}
-}
+	@-webkit-keyframes zoom {
+	    from {-webkit-transform:scale(0)} 
+	    to {-webkit-transform:scale(1)}
+	}
 
-@keyframes zoom {
-    from {transform:scale(0)} 
-    to {transform:scale(1)}
-}
+	@keyframes zoom {
+	    from {transform:scale(0)} 
+	    to {transform:scale(1)}
+	}
 
 /* The Close Button */
 
@@ -166,14 +166,9 @@ require_once "pdo.php";
 
 	<div id="contenido" style="margin-left: 9%; top: 7px;position: relative;">
 		<section class="main row">
-			<article class="col-md-3" style="background-color: #7B9BA6; height: 100%;border-radius: 5px" >
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam, numquam! Voluptatum aliquam earum ipsa beatae fuga accusantium, neque consectetur praesentium suscipit quae quod dolor, nostrum deserunt iste, numquam rerum fugiat.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus, soluta nostrum aspernatur quaerat minus reiciendis sit dolore nam.</p>
-			</article>
-			
-			<article class="col-md-8">
-				<div  class="conteiner" style="margin-left: 2%;padding: 10px; height: 100%;background-color: #7B9BA6;border-radius: 5px;">					
-      			<?php
+			<article class="col-md-3" style="background-color: #7B9BA6; height: 100%;border-radius: 5px;padding:15px;" >
+				<h4 style="padding: 3px">Usuario:</h4>
+				<?php
       				/*$idvecino="d";
       				if(isset($_POST['aux'])) $idvecino=$_POST['aux'];
       				echo $_GET['jojo'];*/
@@ -182,15 +177,11 @@ require_once "pdo.php";
          			$stmt=$pdo->prepare($sql);
 			        $stmt->execute();
 			        foreach ($stmt as $datos) {
-			    ?>
+						
+			        	$asunto=$datos['asunto'];
+			        	if(isset($datos['adjunto']))$file_put_contents('files/'.$datos['archivoname'],$datos['archivo']);
+			        	
 
-			        
-			         	
-			        <div class="conteiner">
-          				<h3 style="padding: 2%;">
-
-          			<?php
-              
           				if($datos['rol']="prof"){
             				$sql1 = 'SELECT * FROM profesor where idProfesor='.$datos['idusuario'];
           				}
@@ -214,23 +205,39 @@ require_once "pdo.php";
                				$nombreusuario=$us['nombresEst'];
                				$apellidousuario=$us['apellidosEst'];
        					}
-     
-     					echo $nombreusuario.' '.$apellidousuario
+     					echo '<h5 style="padding:2px;">'.$nombreusuario.' '.$apellidousuario.'</h5>';
+          				echo '<h4 style="padding:3px;">Asunto<h4>';
+          				echo '<h5 style="padding:2px;">'.$asunto.'</h5>';
+          				echo '<h4 style="padding:3px;">Archivo Adjunto<h4>';
+          			//	echo '<a href="/files/'.$datos['archivoname'].'" download>'.$datos['archivoname'].'</a>'
+          				if(!empty($datos['archivoname'])){
+          				echo '<a href="files/'.$datos['archivoname'].'" download>'.$datos['archivoname'].'</a>';
+          				}else{
+          					echo '<h6>No hay archivo</h6>';
+          				}
           			?>
+
+
+          			
+			</article>
+			
+			<article class="col-md-8">
+				<div  class="conteiner" style="margin-left: 2%;padding: 10px; height: 100%;background-color: #7B9BA6;border-radius: 5px;">					
+      			
           	
-          			</h3>
+          			</h4>
   					
   						<div id="contenedor" class="container" style="border: solid grey 2px; border-radius: 7px; height: 100%; padding: 10px;background-color: #CDD6D5;">
   							<?php
             						echo $datos['contenido'];
       								if(!empty($datos['imagen'])){
-      									echo '<div style="padding:20px;" align="center">';
+      									echo '<div style="padding:10px;" align="center">';
             							echo '<img id="imagen" name="imagen" src="data:image/jpeg;base64,'.base64_encode( $datos['imagen'] ).'"/>';
 										
 								
             							echo '</div>';
             							?>
-            							<div id="myModal" class="modal">
+            							<div id="modalIMG" class="modal">
 											  <span class="close">&times;</span>
 											  <img class="modal-content" id="img01">
 											  <div id="caption"></div>
@@ -238,24 +245,16 @@ require_once "pdo.php";
 										<?php
             								
   							}
-					
-							echo '<td><button type="button" class="btn btn-primary btn-block" onclick="javascript:location.href=' . "'respuesta.php?idbloge=" . $idbl ."&idus=".$idus."'" . '">Responder</button><td>';
+							echo '<br>';
+							echo '<td><button type="button" style="top:5px;	position:relative;right:-450px;" class="btn btn-primary" onclick="javascript:location.href=' . "'respuesta.php?idbloge=". $idbl ."&idus=".$idus."'" . '">Responder</button><td>';
 							
 							if($idus == $datos['idusuario']){
-											echo '<td><button type="button" class="btn btn-primary btn-block" onclick="javascript:location.href=' . "'crearBlog.php?idbloge=" . $idbl ."&idus=".$idus."'" . '">Editar</button><td>';
+											echo '<td><button type="button" style="top:5px;	position:relative;right:-270px;" class="btn btn-primary" onclick="javascript:location.href=' . "'crearBlog.php?idbloge=" . $idbl ."&idus=".$idus."'" . '">Editar</button><td>';
 										}
         				
 
 					?>
   						</div>
-          			
-          			
-      				
-
-        
-        			
-        					
-
      				</div>
     	
     				<?php
@@ -284,7 +283,7 @@ require_once "pdo.php";
 <script src="vendor/jquery/jquery.min.js"></script>
 
 <script>
-	var modal = document.getElementById('myModal');
+	var modal = document.getElementById('modalIMG');
 
 // Get the image and insert it inside the modal - use its "alt" text as a caption
 	var img = document.getElementById('imagen');

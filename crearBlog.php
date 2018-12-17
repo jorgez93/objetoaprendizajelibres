@@ -13,10 +13,7 @@ require_once "pdo.php";
 
 </head>
 <style>
-  #tittle {background-image: url("fondo.jpg");
-          padding: 12px 20px 12px 40px;
-
-  }
+  
   #post {
     position: absolute;
     margin-left: 100px;
@@ -24,12 +21,7 @@ require_once "pdo.php";
 
   }
   textarea{
-   height: 20%;
-   width: 70%;
-   padding:10px;
-   position: absolute;
-   border-left: solid blue;
-   background-color: lightblue;
+   background-color: #7B9BA6;
   }
   ::placeholder{
     color: darkslategrey;
@@ -52,11 +44,11 @@ require_once "pdo.php";
   }
 </style>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<body class="fixed-nav sticky-footer bg-dark" id="page-top" style="background-color: #415B76;">
   <?php
     require "navbar.php";
   ?>
-  <div class="content-wrapper" style="background-color: steelblue">
+  <div class="content-wrapper" style="background-color: #415B76">
     <?php //En esta parte el $_SESSION[] succes controla que un usuario se haya logueado correctamente
       if ( isset($_SESSION["success"]) ) {
           echo('<div class="alert alert-success alert-dismissable">');
@@ -76,29 +68,22 @@ require_once "pdo.php";
         unset($_SESSION["reg"]);
       }
     ?>
-	  <div class="page-header" align="center" id=tittle style="height: 240px">
-      <h1> Bienvenido al Foro</h1>
-			
+	  <div class="page-header" align="center" id=tittle; style="background-color: #233656;">
+      <h1 style="color: white;"> Bienvenido al Foro</h1>
+          <img src="images/logoEPN.png" alt="" style="width: 60px;height: 60px">
+
 	  </div>
     <form  method="post" enctype="multipart/form-data">
-    <div class="form-group" style="height: 160px;" >
+      <section class="main row">
+    <div class="form-group col-md-3" style="margin-right: 3%" >
 			<h1>Asunto:</h1>
-      <div style="width: 9%;float: left;" align="center">
-      
-       
-     
-</div>
-			<textarea  class="formInput" id="post" name=contenido placeholder="Escriba el asunto"></textarea>
+			<textarea  class="formInput" id="post" style="position: relative;height: 140px;border-radius: 10px" name=contenido placeholder="Escriba el asunto"></textarea>
     </div>
-    <div name="contenedor" style="position: relative;top: 10px">
-	<div class="form-group" style="height: 160px;" >
+	<div class="form-group col-md-10" style="margin-left: 2%;" >
 			<h1>Mensaje:</h1>
-      <div style="width: 9%;float: left;" align="center">
-      
-       
-     </div>
 			<textarea  class="formInput" id="post" name=mensaje placeholder="Escriba el mensaje"></textarea>
     </div>
+  </section>
       
     <div name="contenedor" style="position: relative;top: 10px">
     <div  style="margin-left: 2%;float: left;">
@@ -108,7 +93,7 @@ require_once "pdo.php";
 	<div class="form-group" style="height: 160px;" >
 			<h1>Seleccionar un archivo:</h1>
       <div style="width: 9%;float: left;" align="center">
-      <input type="file" src="file.png" name="adjunto" accept=".pdf,.docx,.xls" multiple>
+      <input type="file" name="adjunto" multiple>
     <div name="contenedor" style="position: relative;top: 10px">
     <div style="width: 100px; height: 52px; margin-left: 3%;position: relative; top: 10px;float: left;">
     <form action="/action_page.php" method="post">
@@ -132,28 +117,38 @@ require_once "pdo.php";
     }
       if(isset($_POST['enviar']) && isset($_POST['contenido'])){
                   $contenido=$_POST['contenido'];
-				  $mensaje=$_POST['mensaje'];
+				          $mensaje=$_POST['mensaje'];
                   $imgn=($_FILES['prev']['name']);
                   $imgn1=($_FILES['prev']['tmp_name']);
                   $imagenN=addslashes($_FILES['prev']['tmp_name']);
 
                   //Get content image
+                  $imagetmp=(file_get_contents($imagenN));
+                  $flname=$_FILES['adjunto']['name'];
+                  $newname="files/".$flname;
 
                   
 
-                  $imagetmp=(file_get_contents($imagenN));
+                  if (move_uploaded_file($_FILES['adjunto']['tmp_name'], $newname))
+                  {
+                      $sql = "INSERT INTO foro (contenido, idusuario,rol,imagen,imagename,asunto,archivoname) VALUES (:post, :idusuario,:cargo,:image,:imgname,:asunto,:filename)";
+                      $stmt = $pdo->prepare($sql);
+                      try{
+                        $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido,':filename'=>$newname));
+                      }catch(PDOException $e){
+                          echo $e;
+                      }
+                  }else{
+                      $sql = "INSERT INTO foro (contenido, idusuario,rol,imagen,imagename,asunto) VALUES (:post, :idusuario,:cargo,:image,:imgname,:asunto)";
+                      $stmt = $pdo->prepare($sql);
+                      try{
+                        $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido));
+                      }catch(PDOException $e){
 
+                      }
+                  }
 
-
-
-               $sql = "INSERT INTO foro (contenido, idusuario,rol,imagen,imagename,asunto)
-                 VALUES (:post, :idusuario,:cargo,:image,:imgname,:asunto)";
-                 $stmt = $pdo->prepare($sql);
-              try{
-                $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido));
-              }catch(PDOException $e){
-
-              }
+               
               unset($_POST['contenido']);
                unset($_POST['post']);
              }
