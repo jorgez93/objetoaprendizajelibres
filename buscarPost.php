@@ -207,7 +207,7 @@
 
            
 
-            echo '<td><button type="button" class="btn" onclick="function()">Ir al Blog</button></td>';
+            echo '<td><button type="button" class="btn" onclick="function()">Ir al Foro</button></td>';
            // echo '<td> <div onclick="openModal(' . "'myModal" . $id . "'" . ')" class="arrow"></div> </td>';
             echo '</tr>';
             //--------------

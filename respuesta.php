@@ -1,6 +1,7 @@
 <?php
 require_once "pdo.php";
     session_start();
+    $idbl=intval($_GET['idbloge']);
 
 ?>
 
@@ -149,10 +150,10 @@ require_once "pdo.php";
 
 
                $sql = "INSERT INTO respuesta (contenido, idusuario,rol,imagen,imagename,asunto)
-                 VALUES (:post, :idusuario,:cargo,:image,:imgname,:asunto)";
+                 VALUES (:post, :idusuario,:cargo,:image,:imgname,:idforo,:asunto)";
                  $stmt = $pdo->prepare($sql);
               try{
-                $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido));
+                $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':idforo'=>$idbl,':asunto'=>$contenido));
               }catch(PDOException $e){
 
               }
