@@ -36,10 +36,13 @@ require_once "pdo.php";
 <style>
   
 	#imagen{
-		width: 100%;
-		height: 100%;
+		width: 200px;
+		height: 200px;
 		cursor: pointer;
 	}
+  ul{
+    list-style-type: none;
+  }
 	#imagen:hover{
 		opacity: 0.7;
 	}
@@ -124,7 +127,6 @@ require_once "pdo.php";
 	}
 
 
-
 </style>
 
 
@@ -166,7 +168,7 @@ require_once "pdo.php";
 
 	<div id="contenido" style="margin-left: 9%; top: 7px;position: relative;">
 		<section class="main row">
-			<article class="col-md-3" style="background-color: #7B9BA6; height: 100%;border-radius: 5px;padding:15px;" >
+			<article class="col-md-3" name="info" style="overflow-wrap: break-word; word-wrap: break-word; background-color: #7B9BA6; height: 100%;border-radius: 5px;padding:15px;" >
 				<h4 style="padding: 3px">Usuario:</h4>
 				<?php
       				/*$idvecino="d";
@@ -224,29 +226,29 @@ require_once "pdo.php";
 			<article class="col-md-8">
 				<div  class="conteiner" style="margin-left: 2%;padding: 10px; height: 100%;background-color: #7B9BA6;border-radius: 5px;">					
       			
-          	
-          			</h4>
-  					
+            					
   						<div id="contenedor" class="container" style="border: solid grey 2px; border-radius: 7px; height: 100%; padding: 10px;background-color: #CDD6D5;">
   							<?php
             						echo $datos['contenido'];
       								if(!empty($datos['imagen'])){
-      									echo '<div style="padding:10px;" align="center">';
-            							echo '<img id="imagen" name="imagen" src="data:image/jpeg;base64,'.base64_encode( $datos['imagen'] ).'"/>';
+      									  echo '<div style="padding:10px;" align="center">';
+            							echo '<img id="imagen"  name="imagen" src="data:image/jpeg;base64,'.base64_encode( $datos['imagen'] ).'"/>';
 										
 								
             							echo '</div>';
             							?>
             							<div id="modalIMG" class="modal">
-											  <span class="close">&times;</span>
-											  <img class="modal-content" id="img01">
-											  <div id="caption"></div>
-										</div>
+											     <span class="close">&times;</span>
+											     <img class="modal-content" id="img01">
+											    <div id="<caption></caption>"></div>
+										    </div>
 										<?php
             								
-  							}
-							echo '<br>';
-							echo '<td><button type="button" style="top:5px;	position:relative;right:-450px;" class="btn btn-primary" onclick="javascript:location.href=' . "'respuesta.php?idbloge=". $idbl ."&idus=".$idus."'" . '">Responder</button><td>';
+  							     }
+                     ?>
+                     <div>
+                      <?php
+							echo '<td><button type="button" style="top:5px;	position:relative;right:-450px;" class="btn btn-primary" onclick="javascript:location.href=' . "'respuesta.php?idbloge=". $idbl ."&iduss=".$idus."&idresp=-1'" . '">Responder</button><td>';
 							
 							if($idus == $datos['idusuario']){
 											echo '<td><button type="button" style="top:5px;	position:relative;right:-270px;" class="btn btn-primary" onclick="javascript:location.href=' . "'crearBlog.php?idbloge=" . $idbl ."&idus=".$idus."'" . '">Editar</button><td>';
@@ -254,12 +256,84 @@ require_once "pdo.php";
         				
 
 					?>
-  						</div>
+          </div>
+              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"  href="#respuestasCollapse" data-parent="#exampleAccordion">
+              <h4>Ver Respuestas</h4>
+              </a>
+              
+          
+            <ul class="sidenav-second-level collapse" id="respuestasCollapse">
+          
+              <?php
+
+                  $qry="SELECT * FROM respuesta where idforo=".$idbl;
+
+                  $st=$pdo->prepare($qry);
+                  $st->execute();
+                  if($st->rowCount()==0){
+                     echo "No hay respuestas";
+                  }else{
+                  foreach ($st as $respuestas) {
+                  
+                  ?>
+                    <li>
+
+                  <?php
+
+                  if($respuestas['rol']="prof"){
+                    $qry1 = 'SELECT * FROM profesor where idProfesor='.$respuestas['idusuario'];
+                  }
+
+                  $st1=$pdo->prepare($qry1);
+                  $st1->execute();
+          
+                  foreach ($st1 as $us1) {
+                      $nombrResp=$us1['nombresProf'];
+                      $apellResp=$us1['apellidosProf'];
+                }
+     
+              if($respuestas['rol']="est"){
+                  $qry1 = 'SELECT * FROM estudiante where idEstudiante='.$respuestas['idusuario'];
+                }
+                
+                $st1=$pdo->prepare($qry1);
+                  $st1->execute();
+                  
+                  foreach ($st1 as $us1) {
+                      $nombrResp=$us1['nombresEst'];
+                      $apellResp=$us1['apellidosEst'];
+                }
+                  ?>
+                        <div style="border-radius: 7px;padding:10px;background-color: white;border: solid;">
+                          <?php
+                              echo "<strong>"."$nombrResp".' '."$apellResp</strong>";
+                              echo "<br>";
+                              echo $respuestas['contenido'];
+                              if(!empty($respuestas['imagen'])){
+                              echo '<div style="padding:10px;" align="center">';
+                              echo '<img id="respimg" name="respimg" style="height:100px;width:100px;" src="data:image/jpeg;base64,'.base64_encode( $respuestas['imagen'] ).'"/>';
+                              echo '</div>';
+                              }
+                              if($idus == $datos['idusuario']){
+                              echo '<td><button type="button" style="top:5px; position:relative;margin-left:10px;" class="btn btn-primary" onclick="javascript:location.href=' . "'respuesta.php?idbloge=" . $idbl ."&idresp=".$respuestas['idrespuesta']."'" . '">Editar</button><td>';
+                               }
+                               ?>
+                               </div>
+                            </li>
+                            <?php
+                            }
+                            
+                            
+            
+                           }  
+
+                }
+                ?>
+                </div>  						
+
      				</div>
     	
-    				<?php
-  						}
-  					?>
+    				
 
     			</div>	
 			</article>

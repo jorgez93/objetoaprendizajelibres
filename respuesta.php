@@ -1,7 +1,9 @@
 <?php
 require_once "pdo.php";
     session_start();
-    $idbl=intval($_GET['idbloge']);
+    $idbl=intval($_GET['idresp']);
+    $idforo=intval($_GET['idbloge']);
+    $iduss=intval($_GET['iduss']);
 
 ?>
 
@@ -25,12 +27,9 @@ require_once "pdo.php";
 
   }
   textarea{
-   height: 20%;
-   width: 70%;
-   padding:10px;
-   position: absolute;
-   border-left: solid blue;
-   background-color: lightblue;
+      background-color: #7B9BA6;
+      padding: 2%;
+
   }
   ::placeholder{
     color: darkslategrey;
@@ -53,11 +52,13 @@ require_once "pdo.php";
   }
 </style>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top" style="background-color: #415B76;">
   <?php
     require "navbar.php";
   ?>
-  <div class="content-wrapper" style="background-color: steelblue">
+  <div class="content-wrapper" style="background-color: #415B76">
     <?php //En esta parte el $_SESSION[] succes controla que un usuario se haya logueado correctamente
       if ( isset($_SESSION["success"]) ) {
           echo('<div class="alert alert-success alert-dismissable">');
@@ -77,50 +78,43 @@ require_once "pdo.php";
         unset($_SESSION["reg"]);
       }
     ?>
-	  <div class="page-header" align="center" id=tittle style="height: 240px">
-      <h1> Responder</h1>
-			
-	  </div>
+	  <div class="page-header" id=tittle; style="background-color: #233656;">
+      <h1 style="color: white;margin-left: 2%;"> Responder</h1>
+          <img src="images/logoEPN.png" alt="" style="width: 60px;height: 60px;margin-left: 2%;">
+
+    </div>
     <form  method="post" enctype="multipart/form-data">
-    <div class="form-group" style="height: 160px;" >
-			<h1>Asunto:</h1>
-      <div style="width: 9%;float: left;" align="center">
-      
-       
-     
-</div>
-			<textarea  class="formInput" id="post" name=contenido placeholder="Escriba el asunto"></textarea>
-    </div>
+      <section class="main row">
     <div name="contenedor" style="position: relative;top: 10px">
-	<div class="form-group" style="height: 160px;" >
-			<h1>Mensaje:</h1>
-      <div style="width: 9%;float: left;" align="center">
-      
-       
-     </div>
-			<textarea  class="formInput" id="post" name=mensaje placeholder="Escriba el mensaje"></textarea>
+	<div class="form-group col-md-12" style="margin-left: 2%;" >
+      <h2 style="color: white;position: relative;">Mensaje:</h2>
+      <textarea  class="formInput" id="post" style="position: relative;width: 100%;height: 100px;border-radius: 10px;" name=mensaje placeholder="Escriba el mensaje"></textarea>
     </div>
-      
-    <div name="contenedor" style="position: relative;top: 10px">
-    <div  style="margin-left: 2%;float: left;">
+    <div name="contenedor" style="position: relative;">
+    <div  class="form-group col-md-3" style="margin-left: 2%;float: left;">
       <img type="image" src="sub.png" name="im" style="float: left;margin-left: 3%; width: 52px;height: 52px;">
     </div>
-	
-	<div class="form-group" style="height: 160px;" >
-			<h1>Seleccionar un archivo:</h1>
-      <div style="width: 9%;float: left;" align="center">
-      <input type="file" name="adjunto"  accept=".pdf,.docx,.xls" multiple>
+  
+  <div class="form-group" style="height: 160px;" >
+      <h5 style="color: white" >Seleccionar un archivo:</h5>
+      <div class="col-md-1" style="width: 9%;float: left;color: white" align="center">
+      <input type="file" name="adjunto" multiple>
+
     <div name="contenedor" style="position: relative;top: 10px">
-   
-	
-    <div style="width: 100px; height: 52px; margin-left: 3%;position: relative; top: 10px;float: left;">
+    <div  style="width: 100px; height: 52px; margin-left: 3%;position: relative;float: left;">
     <form action="/action_page.php" method="post">
           <input style="box-sizing:border-box;" id="file-input" name="prev" type="file"  accept="image/x-png,image/gif,image/jpeg" />
     </form>
     </div>
-    <div style="position: relative; margin-left: 88%;">
-       <input type="submit" name=enviar id="boton">
+</div>
+</div>
+      
+
+    
+    <div class="col-md-12" style="position: relative; margin-left: 158%;">
+       <input type="submit" onclick="javascript:location.href='mostrarBlog.php?idbloge='+idforo+'&idus='+$iduss+'" name=enviar id="boton">
     </div>
+  </section>
 </div>
     
     
@@ -133,34 +127,68 @@ require_once "pdo.php";
     if ( $_SESSION["userType"] == 'est' ) {
       $rol="est";
     }
-      if(isset($_POST['enviar']) && isset($_POST['contenido'])){
-                  $contenido=$_POST['contenido'];
-				  $mensaje=$_POST['mensaje'];
-                  $imgn=($_FILES['prev']['name']);
-                  $imgn1=($_FILES['prev']['tmp_name']);
-                  $imagenN=addslashes($_FILES['prev']['tmp_name']);
+      if(isset($_POST['enviar']) && isset($_POST['mensaje'])){
+                  $contenido="";
+                  $mensaje=$_POST['mensaje'];
+                  $imagetmp="";
+                  $imgn="";
+                  if(!empty($_FILES['prev']['name'])){
+                      $imgn=($_FILES['prev']['name']);
+                      $imgn1=($_FILES['prev']['tmp_name']);
+                      $imagenN=addslashes($_FILES['prev']['tmp_name']);
+                      $imagetmp=(file_get_contents($imagenN));
+                    }
 
-                  //Get content image
+                  $flname=$_FILES['adjunto']['name'];
+                  $newname=$flname;
+                  $newloc="filesResp/".$newname;
+
 
                   
+                  if($idbl==-1){
 
-                  $imagetmp=(file_get_contents($imagenN));
+                  if (move_uploaded_file($_FILES['adjunto']['tmp_name'], $newloc))
+                  {
+                      $sql = "INSERT INTO respuesta (contenido, idusuario,rol,imagen,imagename,asunto,archivoname,idforo) VALUES (:post, :idusuario,:cargo,:image,:imgname,:asunto,:filename,:idforo)";
+                      $stmt = $pdo->prepare($sql);
+                      try{
+                        $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido,':filename'=>$newname,':idforo'=>$idforo));
+                      }catch(PDOException $e){
+                          echo $e;
+                      }
+                  }else{
+                      $sql = "INSERT INTO respuesta (contenido, idusuario,rol,imagen,imagename,asunto,idforo) VALUES (:post, :idusuario,:cargo,:image,:imgname,:asunto,:idforo)";
+                      $stmt = $pdo->prepare($sql);
+                      try{
+                        $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido,':idforo'=>$idforo));
+                      }catch(PDOException $e){
 
-
-
-
-               $sql = "INSERT INTO respuesta (contenido, idusuario,rol,imagen,imagename,asunto)
-                 VALUES (:post, :idusuario,:cargo,:image,:imgname,:idforo,:asunto)";
-                 $stmt = $pdo->prepare($sql);
-              try{
-                $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':idforo'=>$idbl,':asunto'=>$contenido));
-              }catch(PDOException $e){
-
-              }
+                      }
+                  }
+                }else{
+                  if (move_uploaded_file($_FILES['adjunto']['tmp_name'], $newname))
+                  {
+                      $sql = "UPDATE respuesta SET contenido=:post,imagen=:image,imagename=:imgname,asunto=:asunto,archivoname=:filename where idrespuesta=".$idbl;
+                      $stmt = $pdo->prepare($sql);
+                      try{
+                        $stmt->execute(array(':post' => $mensaje,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido,':filename'=>$newname));
+                      }catch(PDOException $e){
+                          echo $e;
+                      }
+                  }else{
+                      $sql = "UPDATE respuesta SET contenido=:post,imagen=:image,imagename=:imgname,asunto=:asunto where idrespuesta=".$idbl;
+                      $stmt = $pdo->prepare($sql);
+                      try{
+                        $stmt->execute(array(':post' => $mensaje,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido));
+                      }catch(PDOException $e){
+                          echo $e;
+                      }
+                  }
+                }
+               
               unset($_POST['contenido']);
                unset($_POST['post']);
              }
-      
     ?>
     </form>
     </div>
