@@ -243,7 +243,6 @@ require_once "pdo.php";
 											    <div id="<caption></caption>"></div>
 										    </div>
 										<?php
-            								
   							     }
                      ?>
                      <div>
@@ -314,7 +313,7 @@ require_once "pdo.php";
                               echo '<img id="respimg" name="respimg" style="height:100px;width:100px;" src="data:image/jpeg;base64,'.base64_encode( $respuestas['imagen'] ).'"/>';
                               echo '</div>';
                               }
-                              if($idus == $datos['idusuario']){
+                              if($_SESSION["userID"]== $respuestas['idusuario']){
                               echo '<td><button type="button" style="top:5px; position:relative;margin-left:10px;" class="btn btn-primary" onclick="javascript:location.href=' . "'respuesta.php?idbloge=" . $idbl ."&idresp=".$respuestas['idrespuesta']."'" . '">Editar</button><td>';
                                }
                                ?>
