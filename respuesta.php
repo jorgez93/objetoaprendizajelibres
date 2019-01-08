@@ -3,7 +3,10 @@ require_once "pdo.php";
     session_start();
     $idbl=intval($_GET['idresp']);
     $idforo=intval($_GET['idbloge']);
-    $iduss=intval($_GET['iduss']);
+    if(isset($_GET['iduss'])){
+    $iduss=intval($_GET['iduss']);  
+    }
+    
 
 ?>
 
@@ -27,26 +30,17 @@ require_once "pdo.php";
 
   }
   textarea{
-      background-color: #7B9BA6;
-      padding: 2%;
-
+   background-color: white;
+   border:solid;
+   border-color: grey;
+   padding: 5px;
   }
   ::placeholder{
     color: darkslategrey;
     opacity: 1;
   }
 
- #boton{
-  background : url("publish.png") no-repeat center center;
-  width : 72px;
-  height :72px;
-  margin-left: 12px;
-  border : none;
-  color : transparent;
-  }
-  #boton:hover{
-  background-color: white;
-  }
+ 
   #imagen:hover{
   background-color: #2E6B9E;
   }
@@ -58,7 +52,7 @@ require_once "pdo.php";
   <?php
     require "navbar.php";
   ?>
-  <div class="content-wrapper" style="background-color: #415B76">
+  <div class="content-wrapper" style="background-color: #f2f2f2">
     <?php //En esta parte el $_SESSION[] succes controla que un usuario se haya logueado correctamente
       if ( isset($_SESSION["success"]) ) {
           echo('<div class="alert alert-success alert-dismissable">');
@@ -78,8 +72,8 @@ require_once "pdo.php";
         unset($_SESSION["reg"]);
       }
     ?>
-	  <div class="page-header" id=tittle; style="background-color: #233656;">
-      <h1 style="color: white;margin-left: 2%;"> Responder</h1>
+	  <div class="page-header" id=tittle; style="background-color: #CDD6D5;">
+      <h1 style="color: black;margin-left: 2%;">Responder</h1>
           <img src="images/logoEPN.png" alt="" style="width: 60px;height: 60px;margin-left: 2%;">
 
     </div>
@@ -87,8 +81,17 @@ require_once "pdo.php";
       <section class="main row">
     <div name="contenedor" style="position: relative;top: 10px">
 	<div class="form-group col-md-12" style="margin-left: 2%;" >
-      <h2 style="color: white;position: relative;">Mensaje:</h2>
-      <textarea  class="formInput" id="post" style="position: relative;width: 100%;height: 100px;border-radius: 10px;" name=mensaje placeholder="Escriba el mensaje"></textarea>
+      <h2 style="color: black;position: relative;">Mensaje:</h2>
+      <textarea  class="formInput" id="post" style="position: relative;width: 100%;height: 100px;border-radius: 10px;" name=mensaje placeholder="Escriba el mensaje"><?php 
+          if($idbl!=-1){
+              $sql = 'SELECT * FROM respuesta WHERE idrespuesta='.$idbl;
+              $stmt=$pdo->prepare($sql);
+              $stmt->execute();
+              foreach ($stmt as $datos) {
+                  echo $datos['contenido'];
+              }
+          }
+        ?></textarea>
     </div>
     <div name="contenedor" style="position: relative;">
     <div  class="form-group col-md-3" style="margin-left: 2%;float: left;">
@@ -96,14 +99,14 @@ require_once "pdo.php";
     </div>
   
   <div class="form-group" style="height: 160px;" >
-      <h5 style="color: white" >Seleccionar un archivo:</h5>
+      <h5 style="color: black" >Seleccionar un archivo:</h5>
       <div class="col-md-1" style="width: 9%;float: left;color: white" align="center">
-      <input type="file" name="adjunto" multiple>
+      <input type="file" style="color: black;" name="adjunto" multiple>
 
     <div name="contenedor" style="position: relative;top: 10px">
     <div  style="width: 100px; height: 52px; margin-left: 3%;position: relative;float: left;">
     <form action="/action_page.php" method="post">
-          <input style="box-sizing:border-box;" id="file-input" name="prev" type="file"  accept="image/x-png,image/gif,image/jpeg" />
+          <input style="box-sizing:border-box;color: black" id="file-input" name="prev" type="file"  accept="image/x-png,image/gif,image/jpeg" />
     </form>
     </div>
 </div>
@@ -112,7 +115,7 @@ require_once "pdo.php";
 
     
     <div class="col-md-12" style="position: relative; margin-left: 158%;">
-       <input type="submit" onclick="javascript:location.href='mostrarBlog.php?idbloge='+idforo+'&idus='+$iduss+'" name=enviar id="boton">
+       <button type="submit" class="btn btn-primary" onclick="javascript:location.href='mostrarBlog.php?idbloge='+idforo+'&idus='+$iduss+'" name=enviar id="boton">Responder</button>
     </div>
   </section>
 </div>

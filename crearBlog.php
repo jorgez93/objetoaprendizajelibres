@@ -21,7 +21,10 @@ require_once "pdo.php";
 
   }
   textarea{
-   background-color: #7B9BA6;
+   background-color: white;
+   border:solid;
+   border-color: grey;
+   padding: 5px;
   }
   ::placeholder{
     color: darkslategrey;
@@ -33,17 +36,6 @@ require_once "pdo.php";
   	border-radius: 10px;
   }
 
- #boton{
-  background : url("publish.png") no-repeat center center;
-  width : 72px;
-  height :72px;
-  margin-left: 12px;
-  border : none;
-  color : transparent;
-  }
-  #boton:hover{
-  background-color: white;
-  }
   #imagen:hover{
   background-color: #2E6B9E;
   }
@@ -53,7 +45,7 @@ require_once "pdo.php";
   <?php
     require "navbar.php";
   ?>
-  <div class="content-wrapper" style="background-color: #415B76">
+  <div class="content-wrapper" style="background-color: #f2f2f2;">
     <?php //En esta parte el $_SESSION[] succes controla que un usuario se haya logueado correctamente
       if ( isset($_SESSION["success"]) ) {
           echo('<div class="alert alert-success alert-dismissable">');
@@ -73,20 +65,31 @@ require_once "pdo.php";
         unset($_SESSION["reg"]);
       }
     ?>
-	  <div class="page-header" align="center" id=tittle; style="background-color: #233656;">
-      <h1 style="color: white;"> Bienvenido al Foro</h1>
+	  <div class="page-header" align="center" id=tittle; style="background-color: #CDD6D5;">
+      <h1 style="color: black;"> Bienvenido al Foro</h1>
           <img src="images/logoEPN.png" alt="" style="width: 60px;height: 60px">
 
 	  </div>
     <form  method="post" enctype="multipart/form-data">
       <section class="main row">
     <div class="form-group col-md-3" style="margin-right: 3%" >
-			<h2 style="left: 10%;color: white;position: relative;">Asunto:</h2>
-			<textarea  class="formInput" id="post" style="position: relative;width: 150px;height: 50px;border-radius: 10px" name=contenido placeholder="Escriba el asunto"></textarea>
+			<h2 style="left: 10%;color: black;position: relative;">Asunto:</h2>
+			<textarea  class="formInput" id="post" style="position: relative;width: 350px;height: 70px;border-radius: 10px" name=contenido placeholder="Escriba el asunto"><?php
+      if($idbl!=-1){
+        $sql = 'SELECT * FROM foro WHERE idpost='.$idbl;
+              $stmt=$pdo->prepare($sql);
+              $stmt->execute();
+              foreach ($stmt as $datos) {
+                  echo $datos['asunto'];
+              }
+      }
+     ?></textarea>
     </div>
 	<div class="form-group col-md-10" style="margin-left: 2%;" >
-			<h2 style="color: white;position: relative;">Mensaje:</h2>
-			<textarea  class="formInput" id="post" style="position: relative;width: 90%;height: 100px;border-radius: 10px;" name=mensaje placeholder="Escriba el mensaje"></textarea>
+			<h2 style="color: black;position: relative;">Mensaje:</h2>
+			<textarea  class="formInput" id="post" style="position: relative;width: 90%;height: 100px;border-radius: 10px;" name=mensaje placeholder="Escriba el mensaje"><?php 
+        if($idbl!=-1) echo $datos['contenido'];
+      ?></textarea>
     </div>
    
     <div name="contenedor" style="position: relative;">
@@ -95,14 +98,14 @@ require_once "pdo.php";
     </div>
 	
 	<div class="form-group" style="height: 160px;" >
-			<h5 style="color: white" >Seleccionar un archivo:</h5>
+			<h5 style="color: black;" >Seleccionar un archivo:</h5>
       <div class="col-md-1" style="width: 9%;float: left;color: white" align="center">
-      <input type="file" name="adjunto" multiple>
+      <input type="file" style="color:black;" name="adjunto" multiple>
 
     <div name="contenedor" style="position: relative;top: 10px">
     <div style="width: 100px; height: 52px; margin-left: 3%;position: relative;float: left;">
     <form action="/action_page.php" method="post">
-          <input style="box-sizing:border-box;" id="file-input" name="prev" type="file"  accept="image/x-png,image/gif,image/jpeg" />
+          <input style="box-sizing:border-box;color: black;" id="file-input" name="prev" type="file"  accept="image/x-png,image/gif,image/jpeg" />
     </form>
     </div>
 </div>
@@ -110,7 +113,7 @@ require_once "pdo.php";
       
 
     <div class="col-md-3" style="position: relative; margin-left: 158%;">
-       <input type="submit" name=enviar id="boton">
+       <button type="submit" class="btn btn-primary" name=enviar id="boton">Publicar</button>
     </div>
     </section>
 </div>

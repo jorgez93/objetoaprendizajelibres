@@ -157,7 +157,7 @@
         echo '<input type="text" style="display:none" id="idUsuario" value="'.$_SESSION['userID'].'">';
         ?>
 		
-      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar OA..." title="Ingrese un OA">
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar Foro..." title="Ingrese un Foro">
 	  
 	   
 	   
@@ -166,7 +166,7 @@
         <thead>
           <tr class="header">
             <th style="visibility: hidden;">#</th>
-            <th style="width:70%;">Blog</th>
+            <th style="width:70%;">Foro</th>
             <th>Enlace</th>
             <th style="visibility: hidden;"></th>
           </tr>
@@ -202,7 +202,7 @@
               //echo '<td>' . $row['nombre'] . '</td>';
             //}
             echo '<td style="visibility:hidden;">'.$id.'</td>';
-            echo '<td>' . $row['contenido'] . '</td>';
+            echo '<td>' . $row['asunto'] . '</td>';
 
 
            
