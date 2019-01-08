@@ -4,6 +4,10 @@ require_once "pdo.php";
 
     $idbl=intval($_GET['idbloge']);
     $idus=intval($_GET['idus']);
+
+
+
+
     
 /*
      $sql = 'SELECT * FROM post limit 5';
@@ -134,7 +138,7 @@ require_once "pdo.php";
   <?php
     require "navbar.php";
   ?>
-  <div class="content-wrapper" style="background-color: #415B76;">
+  <div class="content-wrapper" style="background-color: #f2f2f2;">
     <?php //En esta parte el $_SESSION[] succes controla que un usuario se haya logueado correctamente
       if ( isset($_SESSION["success"]) ) {
           echo('<div class="alert alert-success alert-dismissable">');
@@ -155,12 +159,13 @@ require_once "pdo.php";
       }
     ?>
 	<header>
-		<div class="conteiner" align="center" style="background-color: #233656; padding: 8px;color: white;">
+		<div class="conteiner" style="background-color: #CDD6D5; padding: 8px;color: white;border-radius: 5px;">
     		<div>
-    			<img src="images/logoEPN.png" alt="" style="width: 60px;height: 60px">
-    		</div>
-    		<div>
-    			<h4>Blog EPN</h4>
+          <section class="main row">
+                      <strong class="display-4 col-md-2" style="margin-left: 10%;color: black">Foro EPN</strong>
+                    <img class="col-md-2" src="images/logoEPN.png" alt="" style="width: 10px;height: 150px;">
+          </section>
+
     		</div>
     	</div>
 	</header>
@@ -168,7 +173,7 @@ require_once "pdo.php";
 
 	<div id="contenido" style="margin-left: 9%; top: 7px;position: relative;">
 		<section class="main row">
-			<article class="col-md-3" name="info" style="overflow-wrap: break-word; word-wrap: break-word; background-color: #7B9BA6; height: 100%;border-radius: 5px;padding:15px;" >
+			<article class="col-md-3" name="info" style="overflow-wrap: break-word; word-wrap: break-word; background-color: white;border:solid;border-color: grey; height: 100%;border-radius: 5px;padding:15px;" >
 				<h4 style="padding: 3px">Usuario:</h4>
 				<?php
       				/*$idvecino="d";
@@ -224,10 +229,10 @@ require_once "pdo.php";
 			</article>
 			
 			<article class="col-md-8">
-				<div  class="conteiner" style="margin-left: 2%;padding: 10px; height: 100%;background-color: #7B9BA6;border-radius: 5px;">					
+				<div  class="conteiner" style="margin-left: 2%;padding: 10px; height: 100%;background-color: #CDD6D5;border-radius: 5px;">					
       			
             					
-  						<div id="contenedor" class="container" style="border: solid grey 2px; border-radius: 7px; height: 100%; padding: 10px;background-color: #CDD6D5;">
+  						<div id="contenedor" class="container" style="border: solid grey 2px; border-radius: 7px; height: 100%; padding: 10px;background-color: white;">
   							<?php
             						echo $datos['contenido'];
       								if(!empty($datos['imagen'])){
