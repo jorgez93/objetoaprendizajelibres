@@ -73,9 +73,32 @@
 							<a href="buscarPost.php">Buscar Foro</a>
 						</li>
 					</ul>
+					<li class="nav-item" data-toogle="tooltip" data-placement="right" title="Colaboradores">
+					<a class="nav-link nav-link-collapse collapse" data-toggle="collapse" href="#colaboradores" data-parent="#exampleAccordion">
+						<i class="fa fa-fw fa-github"></i>
+						<span class="nav-link-text">Colaboradores</span>
+					</a>
+					<ul class="sidenav-second-level collapse" id="colaboradores">
+						<li>
+							<a href="crearColaborador.php?idbloge=-1">Nuevo</a>
+						</li>
+						<li>
+							<a href="editarColaborador.php">Editar</a>
+						</li>
+						<li>
+							<a href="borrarColaborador.php">Borrar</a>
+						</li>
+						<li>
+							<a href="salirColaborador.php">Salir</a>
+						</li>
+					</ul>
 
 
                 <?php
+				
+				
+				
+				
                 if ( $_SESSION["userType"] == 'prof' ) {
                     ?>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Crear">
