@@ -11,6 +11,6 @@ CREATE TABLE `colaborador` (
   `dirciudad` varchar(45) DEFAULT NULL,
   `telefono` varchar(45) DEFAULT NULL,
   `correo` varchar(45) DEFAULT NULL,
-  `foto` varchar(45) DEFAULT NULL,
+  `foto` longblob,
   PRIMARY KEY (`idcolaborador`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
