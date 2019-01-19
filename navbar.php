@@ -73,6 +73,10 @@
 							<a href="buscarPost.php">Buscar Foro</a>
 						</li>
 					</ul>
+					
+					
+					
+					
 					<li class="nav-item" data-toogle="tooltip" data-placement="right" title="Colaboradores">
 					<a class="nav-link nav-link-collapse collapse" data-toggle="collapse" href="#colaboradores" data-parent="#exampleAccordion">
 						<i class="fa fa-fw fa-github"></i>
@@ -80,6 +84,10 @@
 					</a>
 					<ul class="sidenav-second-level collapse" id="colaboradores">
 						<li>
+							<a href="buscarColaborador.php?idbloge=-1">Buscar Colaboraciones</a>
+						</li>
+						<li>
+
 							<a href="crearColaborador.php?idbloge=-1">Nuevo</a>
 						</li>
 						<li>

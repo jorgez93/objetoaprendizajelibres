@@ -1,7 +1,7 @@
 <footer class="sticky-footer">
     <div class="container">
         <div class="text-center">
-            <small><i class="fa fa-creative-commons" aria-hidden="true"></i> 2017</small>
+            <small><i class="fa fa-creative-commons" aria-hidden="true"></i> 2019</small>
         </div>
     </div>
 </footer>
