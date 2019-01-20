@@ -1,4 +1,5 @@
 <!-- Navigation-->
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="index.php">Sistema de Gestión de Objetos de Aprendizaje</a>
 
@@ -86,6 +87,41 @@
 						<li>
 							<a href="buscarColaborador.php?idbloge=-1">Buscar Colaboraciones</a>
 						</li>
+
+                        <?php 
+                        if($_SESSION['userType']=='prof'){
+                            $qry='SELECT * from profesor where idProfesor='.$_SESSION['userID'];
+                        }elseif($_SESSION['userType']=='est'){
+                            $qry=("SELECT * from estudiante where idEstudiante=".$_SESSION['userID']);
+                        }
+                        try{
+                             require_once "pdo.php";
+                        }
+                            catch(Exception $e){
+                                echo "HHHHHHHHHHHHHHHHHHHHHHHHHHH";
+                                echo $pdo;
+                            echo "Mensaje: ".$e->getMessage();  
+                        }
+                            
+                            $stm=$pdo->prepare($qry);
+                            
+                            $stm->execute();
+                        
+                        foreach($stm as $datos){
+                            if($_SESSION['userType']=='prof'){
+                               $cedula= $datos['cedulaProf'];
+                            }else{
+                                $cedula= $datos['cedulaEst'];
+                            }
+                        }
+
+                        $qry=('SELECT * from colaborador where cedula='.$cedula);
+                        $stm1=$pdo->prepare($qry);
+                        $stm1->execute();
+                    
+                        $val=$stm1->rowCount();
+                        if($val!=0){
+                        ?>
 						<li>
 
 							<a href="crearColaborador.php?idbloge=-1">Nuevo</a>
@@ -96,6 +132,9 @@
 						<li>
 							<a href="borrarColaborador.php">Borrar</a>
 						</li>
+                        <?php 
+                        }
+                        ?>
 						<li>
 							<a href="salirColaborador.php">Salir</a>
 						</li>
