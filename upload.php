@@ -32,6 +32,11 @@
             ':tipo' => $tipo,
             ':ruta_zip' => 'zip/'.$fileName,
             ':idProfesor' => $_SESSION['userID']));
+       
+       $sql2 = "INSERT INTO colaborador (idUsuario) VALUES(:idUsuario)";
+		$stmt2 = $pdo->prepare($sql2);
+		$stmt2->execute(array(':idUsuario' => $_SESSION['userID']));
+       
     } else {
         echo "move_uploaded_file function failed";
     }
