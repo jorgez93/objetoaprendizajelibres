@@ -15,7 +15,10 @@ CREATE TABLE `colaborador` (
   PRIMARY KEY (`idcolaborador`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-alter table colaborador add column (
-idUsuario int
+alter table profesor add column (
+idcolaborador int
 );
-alter table colaborador add CONSTRAINT UC_idUsuario UNIQUE (idUsuario);
+
+alter table estudiante add column (
+idcolaborador int
+);
