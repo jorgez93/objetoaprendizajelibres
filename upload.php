@@ -45,7 +45,7 @@
 			$stmt2->execute(array(':idEstudiante' => $_SESSION['userID']));
 			}
 			
-			foreach($stm2 as $datos){
+			foreach($stmt2 as $datos){
                             if($_SESSION['userType']=='est'){
 								$cedula= $datos['cedulaEst'];
 								$nombres= $datos['nombresEst'];
