@@ -33,9 +33,84 @@
             ':ruta_zip' => 'zip/'.$fileName,
             ':idProfesor' => $_SESSION['userID']));
        
-       $sql2 = "INSERT INTO colaborador (idUsuario) VALUES(:idUsuario)";
-		$stmt2 = $pdo->prepare($sql2);
-		$stmt2->execute(array(':idUsuario' => $_SESSION['userID']));
+       if($_SESSION['userType'] == 'prof'){
+			$sql2 = "select * from profesor where idProfesor = :idProfesor";
+			$stmt2 = $pdo->prepare($sql2);
+			$stmt2->execute(array(':idProfesor' => $_SESSION['userID']));
+			
+			}
+			else{
+			$sql2 = "select * from estudiante where idEstudiante = :idEstudiante";
+			$stmt2 = $pdo->prepare($sql2);
+			$stmt2->execute(array(':idEstudiante' => $_SESSION['userID']));
+			}
+			
+			foreach($stm2 as $datos){
+                            if($_SESSION['userType']=='est'){
+								$cedula= $datos['cedulaEst'];
+								$nombres= $datos['nombresEst'];
+								$apellidos= $datos['apellidosEst'];
+								$correo= $datos['correoEst'];
+								$idColaborador = $datos['idcolaborador'];
+                            }else{
+                                $cedula= $datos['cedulaProf'];
+								$nombres= $datos['nombresProf'];
+								$apellidos= $datos['apellidosProf'];
+								$correo= $datos['correoProf'];
+								$idColaborador = $datos['idcolaborador'];	
+                            }
+                        }
+						
+			if($idColaborador === NULL){
+				
+				$sql3 = "INSERT INTO colaborador (cedula, nombres, apellidos, correo) VALUES(:cedula, :nombres, :apellidos, :correo)";
+		
+				$stmt3 = $pdo->prepare($sql3);
+				$stmt3->execute(
+				array(':cedula' => $cedula,
+				':nombres' => $nombres,
+				':apellidos' => $apellidos,
+				':correo' => $correo,
+				));
+				
+				
+				if($_SESSION['userType'] == 'prof'){
+				$sql4 = "SELECT * FROM colaborador ORDER BY idcolaborador DESC LIMIT 1";
+				$stmt4 = $pdo->prepare($sql4);
+				$stmt4->execute();
+				foreach($stmt4 as $datos2){
+				$idColaborador = $datos2['idcolaborador'];
+				}
+				
+				$sql5 = "UPDATE profesor set idcolaborador = :idColaborador where idProfesor = :idProfesor";
+				$stmt5 = $pdo->prepare($sql5);
+				$stmt5->execute(array(
+				':idColaborador' => $idColaborador,
+				':idProfesor' => $_SESSION['userID']));
+			
+			}
+			else{
+				$sql4 = "SELECT * FROM colaborador ORDER BY idcolaborador DESC LIMIT 1";
+				$stmt4 = $pdo->prepare($sql4);
+				$stmt4->execute();
+				
+				foreach($stmt4 as $datos2){
+				$idColaborador = $datos2['idcolaborador'];
+				}
+				
+				$sql5 = "UPDATE estudiante set idcolaborador = :idColaborador where idEstudiante = :idEstudiante";
+				$stmt5 = $pdo->prepare($sql5);
+				$stmt5->execute(array(
+				':idColaborador' => $idColaborador,
+				':idEstudiante' => $_SESSION['userID']));
+			
+			}
+				
+				
+				
+				
+			}
+			
        
     } else {
         echo "move_uploaded_file function failed";
