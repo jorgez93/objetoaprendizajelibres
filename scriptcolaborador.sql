@@ -14,3 +14,8 @@ CREATE TABLE `colaborador` (
   `foto` longblob,
   PRIMARY KEY (`idcolaborador`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+alter table colaborador add column (
+idUsuario int
+);
+alter table colaborador add CONSTRAINT UC_idUsuario UNIQUE (idUsuario);
