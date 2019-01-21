@@ -90,9 +90,9 @@
 
                         <?php 
                         if($_SESSION['userType']=='prof'){
-                            $qry='SELECT * from profesor where idProfesor='.$_SESSION['userID'];
+                            $qry="SELECT * from profesor where idProfesor= :iduser and idcolaborador IS NOT NULL";
                         }elseif($_SESSION['userType']=='est'){
-                            $qry=("SELECT * from estudiante where idEstudiante=".$_SESSION['userID']);
+                            $qry="SELECT * from estudiante where idEstudiante= :iduser and idcolaborador IS NOT NULL";
                         }
                         try{
                              require_once "pdo.php";
@@ -105,21 +105,9 @@
                             
                             $stm=$pdo->prepare($qry);
                             
-                            $stm->execute();
-                        
-                        foreach($stm as $datos){
-                            if($_SESSION['userType']=='prof'){
-                               $idusuario= $datos['idProfesor'];
-                            }else{
-                                $idusuario= $datos['idEstudiante'];
-                            }
-                        }
-
-                        $qry=('SELECT * from colaborador where idUsuario='.$idusuario);
-                        $stm1=$pdo->prepare($qry);
-                        $stm1->execute();
-                    
-                        $val=$stm1->rowCount();
+                            $stm->execute(array(':iduser'=> $_SESSION['userID']));
+		
+                        $val=$stm->rowCount();
                         if($val!=0){
                         ?>
 						<li>
