@@ -109,13 +109,13 @@
                         
                         foreach($stm as $datos){
                             if($_SESSION['userType']=='prof'){
-                               $cedula= $datos['cedulaProf'];
+                               $idusuario= $datos['idProfesor'];
                             }else{
-                                $cedula= $datos['cedulaEst'];
+                                $idusuario= $datos['idEstudiante'];
                             }
                         }
 
-                        $qry=('SELECT * from colaborador where cedula='.$cedula);
+                        $qry=('SELECT * from colaborador where idUsuario='.$idusuario);
                         $stm1=$pdo->prepare($qry);
                         $stm1->execute();
                     
