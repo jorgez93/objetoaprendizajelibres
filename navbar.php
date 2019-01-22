@@ -124,7 +124,7 @@
                         }
                         ?>
 						<li>
-							<a href="salirColaborador.php">Salir</a>
+							<a href="index.php">Salir</a>
 						</li>
 					</ul>
 
