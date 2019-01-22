@@ -224,15 +224,15 @@
 
 
           <?php
-          $result = $pdo->query("SELECT * FROM objetoaprendizaje oa JOIN profesor p ON oa.idProfesor = p.idProfesor");
+          $result = $pdo->query("SELECT * FROM objetoaprendizaje");
           foreach ($result as $row) {
             $id = $row['idOA'];
             $userID = false;
-            /*if (($_SESSION["userID"] == $row['idProfesor'] && $_SESSION["userType"] != "est") || $_SESSION["userType"] == "admin") {
+            if (($_SESSION["userID"] == $row['idProfesor'] && $_SESSION["userType"] != "est") || $_SESSION["userType"] == "admin") {
               $userID = true;
-            }*/
+            }
 		  
-	   $result = $pdo->query("SELECT * FROM objetoaprendizaje");
+	   
 
             echo '<tr>';
            // $sql = "SELECT * FROM rutaoa WHERE idOA = :idOA AND idUser = :idUser AND username = :userName";
