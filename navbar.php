@@ -112,10 +112,10 @@
                         ?>
 						<li>
 
-							<a href="crearColaborador.php?idbloge=-1">Nuevo</a>
+							<a href="crearColaborador.php?done=0">Nuevo</a>
 						</li>
 						<li>
-							<a href="editarColaborador.php">Editar</a>
+							<a href="editarColaborador.php?done=0">Editar</a>
 						</li>
 						<li>
 							<a href="borrarColaborador.php">Borrar</a>

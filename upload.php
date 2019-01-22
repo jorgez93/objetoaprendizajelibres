@@ -63,7 +63,7 @@
 						
 			if($idColaborador === NULL){
 				
-				$sql3 = "INSERT INTO colaborador (cedula, nombres, apellidos, correo) VALUES(:cedula, :nombres, :apellidos, :correo)";
+				$sql3 = "INSERT INTO colaborador (cedula, nombres, apellidos, correo, idUsuario) VALUES(:cedula, :nombres, :apellidos, :correo,:idUsuario)";
 		
 				$stmt3 = $pdo->prepare($sql3);
 				$stmt3->execute(
@@ -71,6 +71,7 @@
 				':nombres' => $nombres,
 				':apellidos' => $apellidos,
 				':correo' => $correo,
+				':idUsuario'=> $_SESSION['userID'],
 				));
 				
 				
