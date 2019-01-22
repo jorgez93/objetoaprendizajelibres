@@ -118,13 +118,13 @@
 							<a href="editarColaborador.php?done=0">Editar</a>
 						</li>
 						<li>
-							<a href="borrarColaborador.php">Borrar</a>
+							<a href="#" onclick="borrarColaborador();">Borrar</a>
 						</li>
                         <?php 
                         }
                         ?>
 						<li>
-							<a href="salirColaborador.php">Salir</a>
+							<a href="index.php">Salir</a>
 						</li>
 					</ul>
 
@@ -222,3 +222,13 @@
     </div>
 
 </nav>
+
+<script>
+function borrarColaborador() {
+		    var ajax = new XMLHttpRequest();
+                    ajax.open("POST", "borrarColaborador.php");
+		    ajax.send();
+                    alert("Eliminado de colaboradores!");
+                    javascript: location.href = 'index.php';
+}
+</script>
