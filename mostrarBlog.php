@@ -233,7 +233,14 @@ require_once "pdo.php";
       			
             					
   						<div id="contenedor" class="container" style="border: solid grey 2px; border-radius: 7px; height: 100%; padding: 10px;background-color: white;">
-  							<?php
+                    <p style="opacity: 0.9;margin-left: 400px;" > 
+                    <?php 
+                      echo $datos['fecha'];
+                    ?>
+                  </p>
+                
+  							<section>
+                <?php
             						echo $datos['contenido'];
       								if(!empty($datos['imagen'])){
       									  echo '<div style="padding:10px;" align="center">';
@@ -242,6 +249,7 @@ require_once "pdo.php";
 								
             							echo '</div>';
             							?>
+                          </section>
             							<div id="modalIMG" class="modal">
 											     <span class="close">&times;</span>
 											     <img class="modal-content" id="img01">
@@ -310,8 +318,12 @@ require_once "pdo.php";
                   ?>
                         <div style="border-radius: 7px;padding:10px;background-color: white;border: solid;">
                           <?php
+                          echo "<section>";
                               echo "<strong>"."$nombrResp".' '."$apellResp</strong>";
-                              echo "<br>";
+                              echo "<p>".$respuestas['fecha']."</p>";
+                          echo "</section>";
+
+                          echo "<h5>Mensaje</h5>";
                               echo $respuestas['contenido'];
                               if(!empty($respuestas['imagen'])){
                               echo '<div style="padding:10px;" align="center">';

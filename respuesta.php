@@ -146,24 +146,25 @@ require_once "pdo.php";
                   $newname=$flname;
                   $newloc="filesResp/".$newname;
 
+                  $now = date_create()->format('Y-m-d H:i:s');
 
                   
                   if($idbl==-1){
 
                   if (move_uploaded_file($_FILES['adjunto']['tmp_name'], $newloc))
                   {
-                      $sql = "INSERT INTO respuesta (contenido, idusuario,rol,imagen,imagename,asunto,archivoname,idforo) VALUES (:post, :idusuario,:cargo,:image,:imgname,:asunto,:filename,:idforo)";
+                      $sql = "INSERT INTO respuesta (contenido, idusuario,rol,imagen,imagename,asunto,archivoname,idforo,fecha) VALUES (:post, :idusuario,:cargo,:image,:imgname,:asunto,:filename,:idforo,:fech)";
                       $stmt = $pdo->prepare($sql);
                       try{
-                        $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido,':filename'=>$newname,':idforo'=>$idforo));
+                        $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido,':filename'=>$newname,':idforo'=>$idforo,'fech'=>$now));
                       }catch(PDOException $e){
                           echo $e;
                       }
                   }else{
-                      $sql = "INSERT INTO respuesta (contenido, idusuario,rol,imagen,imagename,asunto,idforo) VALUES (:post, :idusuario,:cargo,:image,:imgname,:asunto,:idforo)";
+                      $sql = "INSERT INTO respuesta (contenido, idusuario,rol,imagen,imagename,asunto,idforo,fecha) VALUES (:post, :idusuario,:cargo,:image,:imgname,:asunto,:idforo,:fech)";
                       $stmt = $pdo->prepare($sql);
                       try{
-                        $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido,':idforo'=>$idforo));
+                        $stmt->execute(array(':post' => $mensaje,':idusuario' => $_SESSION["userID"],':cargo'=>$rol,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido,':idforo'=>$idforo,'fech'=>$now));
                       }catch(PDOException $e){
 
                       }
@@ -171,18 +172,18 @@ require_once "pdo.php";
                 }else{
                   if (move_uploaded_file($_FILES['adjunto']['tmp_name'], $newname))
                   {
-                      $sql = "UPDATE respuesta SET contenido=:post,imagen=:image,imagename=:imgname,asunto=:asunto,archivoname=:filename where idrespuesta=".$idbl;
+                      $sql = "UPDATE respuesta SET contenido=:post,imagen=:image,imagename=:imgname,asunto=:asunto,archivoname=:filename,fecha=:fech where idrespuesta=".$idbl;
                       $stmt = $pdo->prepare($sql);
                       try{
-                        $stmt->execute(array(':post' => $mensaje,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido,':filename'=>$newname));
+                        $stmt->execute(array(':post' => $mensaje,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido,':filename'=>$newname,'fech'=>$now));
                       }catch(PDOException $e){
                           echo $e;
                       }
                   }else{
-                      $sql = "UPDATE respuesta SET contenido=:post,imagen=:image,imagename=:imgname,asunto=:asunto where idrespuesta=".$idbl;
+                      $sql = "UPDATE respuesta SET contenido=:post,imagen=:image,imagename=:imgname,asunto=:asunto,fecha=:fech where idrespuesta=".$idbl;
                       $stmt = $pdo->prepare($sql);
                       try{
-                        $stmt->execute(array(':post' => $mensaje,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido));
+                        $stmt->execute(array(':post' => $mensaje,':image'=>$imagetmp,':imgname'=>$imgn,':asunto'=>$contenido,'fech'=>$now));
                       }catch(PDOException $e){
                           echo $e;
                       }

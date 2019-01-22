@@ -213,10 +213,9 @@
       <table id="myTable">
         <tr class="header">
 		
-          <th style="width:20%;">Nombre</th>
-		  <th style="width:20%;">Cédula</th>
           <th style="width:20%;">Autor</th>
-          <th style="width:20%;">Año</th>
+		  <th style="width:20%;">Cédula</th>
+          <th style="width:20%;">Nombre del OA</th>
           <th style="width:20%;">Palabras Clave</th>
             <th style="width:20%;">Visualizar Comentarios</th>
 			
@@ -250,8 +249,9 @@
               //echo '<td>' . $row['nombre'] . '</td>';
             //}
             echo '<td>' . $row['autor'] . '</td>';
-            echo '<td>' . date("d-m-Y",strtotime($row['fecha'])) . '</td>';
-            echo '<td>' . $row['p_clave'] . '</td>';
+            echo '<td>' . $row['cedulaProf'] . '</td>';
+            echo '<td>' . $row['nombre'] . '</td>';
+            echo '<td>'.$row['p_clave'].'</td>';
             echo '<td> <div onclick="openModal(' . "'myModal" . $id . "'" . ')" class="arrow"></div> </td>';
             echo '</tr>';
             echo '<div id="myModal' . $id . '" class="modalmy">';
